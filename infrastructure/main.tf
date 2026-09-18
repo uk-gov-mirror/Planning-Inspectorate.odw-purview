@@ -57,8 +57,10 @@ resource "azurerm_storage_account" "dedicated_purview_storage" {
   }
 
   network_rules {
-    default_action = "Allow"
-    bypass         = ["AzureServices"]
+    default_action             = "Deny"
+    bypass                     = ["AzureServices"]
+    ip_rules                   = var.allowed_storage_ip_rules
+    virtual_network_subnet_ids = var.storage_vnet_subnet_ids
   }
 
   tags = merge(
